@@ -1,0 +1,98 @@
+.testimonials {
+    padding: 4rem 2rem;
+    background-color: #f0f4ff;
+}
+
+.testimonials h2 {
+    font-family: "Berkshire Swash", serif;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    }
+
+.testimonial{
+    background: #fff;
+    text-align: center;
+    padding: 30px 40px 50px;
+    margin: 0 0px 100px;
+    position: relative;
+}
+.testimonial:before,
+.testimonial:after{
+    content: "";
+    border-top: 40px solid #fff;
+    border-right: 180px solid transparent;
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+}
+.testimonial:after{
+    border-right: none;
+    border-left: 180px solid transparent;
+    left: auto;
+    right: 0;
+}
+.testimonial .icon{
+    display: inline-block;
+    font-size: 80px;
+    color: #4338ca;
+    margin-bottom: 20px;
+    opacity: 0.6;
+}
+.testimonial .description{
+    color: #5b557e;
+    text-align: left;
+    margin-bottom: 30px;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    opacity: 0.8;
+}
+.testimonial .testimonial-content{
+    width: 100%;
+    position: absolute;
+    left: 0;
+}
+.testimonial .pic{
+    display: inline-block;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 2px #daad86;
+    overflow: hidden;
+    z-index: 1;
+    position: relative;
+}
+.testimonial .pic img{
+    width: 90px;
+    height: 90px;
+}
+.testimonial .title{
+    font-size: 15px;
+    font-weight: bold;
+    color: #4f46e5;
+    text-transform: capitalize;
+    margin: 0 0 5px 0;
+}
+.testimonial .post{
+    display: block;
+    font-size: 14px;
+    color: #ffd9b8;
+}
+
+@media only screen and (max-width: 650px) and (min-width: 400px){
+    .testimonial:before{ border-right: 325px solid transparent; }
+    .testimonial:after{ border-left: 325px solid transparent; }
+}
+
+.swiper-wrapper {
+    margin-bottom: 25px;
+}
+
+span.swiper-pagination-bullet {
+    background: #4f46e5 ;
+    width: 12px;
+    height: 12px;
+}
+
+span.swiper-pagination-bullet-active {
+    background: #4338ca ; 
+}
