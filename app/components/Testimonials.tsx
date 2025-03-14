@@ -29,6 +29,11 @@ export default function Testimonials() {
           spaceBetween={20}
           pagination={{ clickable: true }}
           autoplay={{ delay: 3000 }}
+          breakpoints={{
+            0: { slidesPerView: 1 },   // 1 slide on small screens
+            768: { slidesPerView: 2 }, // 2 slides on tablets
+            1024: { slidesPerView: 3 } // 3 slides on desktops
+          }}
         >
           {testimonials.map((t, index) => (
             <SwiperSlide key={index} className="testimonial">
