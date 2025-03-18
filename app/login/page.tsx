@@ -24,11 +24,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="card shadow-lg p-4" style={{ width: "400px" }}>
+    <div className="container-box d-flex justify-content-center align-items-center vh-100 bg-light" id="login">
+      <div className="card shadow-lg p-4 bg-praakrithi" style={{ width: "400px" }}>
         <div className="card-body">
-          <h2 className="text-center fw-bold mb-2">Welcome Back</h2>
-          <p className="text-center text-muted mb-4">Please sign in to continue</p>
+          <h2 className="text-center fw-bold mb-4 berkshire-font">Welcome Back</h2>
           
           <form>
             <div className="mb-3">

@@ -1,0 +1,14 @@
+.container-box {
+    background-image: url('/images/hero-background.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.berkshire-font{
+    font-family: "Berkshire Swash", serif;
+}
+
+.bg-praakrithi {
+    background-color: #f0f4ff
+}

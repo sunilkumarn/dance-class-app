@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div className="container-box d-flex justify-content-center align-items-center vh-100 bg-light" id="forgot-password">
       <div className="card shadow-lg p-4" style={{ width: "400px" }}>
         <div className="card-body">
-          <h2 className="text-center fw-bold mb-2">Forgot Password</h2>
+          <h2 className="text-center fw-bold mb-2 berkshire-font">Forgot Password?</h2>
           <p className="text-center text-muted mb-4">
             Enter your email address and we’ll send you a link to reset your password.
           </p>
