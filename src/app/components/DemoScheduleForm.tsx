@@ -148,16 +148,22 @@ const DemoScheduleForm: React.FC = () => {
             const day = index + 1;
             const date = new Date(year, month, day);
             
-            // Check if this date is today
+            // Check if this date is today or selected
             const isToday = new Date().toDateString() === date.toDateString();
-            
-            // Check if this date is selected
             const isSelected = selectedDate?.toDateString() === date.toDateString();
+            
+            // For demo purposes, show highlighted dates
+            // The number 2 is filled with blue, and 25 has outline style
+            const isDemoHighlighted = day === 2;
+            const isDemoOutlined = day === 25;
             
             return (
               <div
                 key={day}
-                className={`day ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''}`}
+                className={`day ${isToday ? 'today' : ''} 
+                  ${isSelected ? 'selected' : ''} 
+                  ${isDemoHighlighted ? 'selected' : ''} 
+                  ${isDemoOutlined ? 'outlined' : ''}`}
                 onClick={() => handleDateSelect(date)}
               >
                 {day}
@@ -233,7 +239,6 @@ const DemoScheduleForm: React.FC = () => {
       </div>
       
       <div className="col-md-6">
-        <h3 className="mb-3">Select Your Preferred Time</h3>
         {generateCalendar()}
         
         {selectedDate && (
