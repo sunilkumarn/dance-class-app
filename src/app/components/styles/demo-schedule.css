@@ -1,0 +1,134 @@
+/* Demo Schedule Form Styles */
+
+/* Calendar Styles */
+.calendar {
+  margin-bottom: 20px;
+}
+
+.calendar-header {
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.day-name {
+  padding: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.day {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.day:hover:not(.empty) {
+  background-color: #f0f0f0;
+}
+
+.day.empty {
+  cursor: default;
+}
+
+.day.today {
+  font-weight: bold;
+  border: 1px solid #007bff;
+}
+
+.day.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Time slots */
+.time-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.time-slot {
+  padding: 12px;
+  background-color: #f7f9fc;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.time-slot:hover {
+  background-color: #e9ecef;
+}
+
+.time-slot.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Form container styles */
+.demo-form-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  padding: 30px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.demo-form-container h2 {
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+}
+
+button.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  font-weight: 500;
+  border-radius: 5px;
+}
+
+button.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+/* Footer styles */
+.footer-copyright {
+  text-align: center;
+  padding: 15px 0;
+  color: #6c757d;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+} 

@@ -52,7 +52,7 @@ export default function Header() {
               </>
             ) : (
               <>
-              <li className="nav-item"><Link className="nav-link schedule-demo" href="/demo">Schedule a demo class</Link></li>
+              <li className="nav-item"><Link className="nav-link schedule-demo" href="/schedule-demo">Book a Free Demo Class</Link></li>
               <li className="nav-item"><Link className="nav-link" href="/login">Student Login</Link></li>
               <li className="nav-item">
                 <div className="contact-with-icon">

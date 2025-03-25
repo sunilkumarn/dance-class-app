@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import "./components/styles/landing.css";
 import "./components/styles/testimonial.css";
 import "./components/styles/global.css";
+import "./components/styles/demo-schedule.css";
 
 const berkshireSwash = Berkshire_Swash({ weight: "400", subsets: ["latin"] });
 const roboto = Roboto({ weight: ["100", "400", "500", "900"], subsets: ["latin"] });
