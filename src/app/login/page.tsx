@@ -10,9 +10,11 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       // 1️⃣ Authenticate user
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -37,10 +39,12 @@ export default function LoginPage() {
         }
       } else {
         setError("User data not found.");
+        setIsLoading(false);
       }
     } catch (err) {
       console.log("Error:", err);
       setError("Invalid email or password.");
+      setIsLoading(false);
     }
   };
 
@@ -50,10 +54,12 @@ export default function LoginPage() {
         <h2 className="text-center fw-bold mb-2">Welcome Back</h2>
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleLogin}>
+          
           <div className="mb-3">
             <label className="form-label">Email</label>
             <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
+
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
@@ -63,7 +69,20 @@ export default function LoginPage() {
               <Link href="/forgot-password" className="text-primary small">Forgot password?</Link>
             </div>
             
-          <button type="submit" className="btn btn-primary w-100">Sign In</button>
+          <button 
+            type="submit" 
+            className="btn btn-primary w-100" 
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Signing in...
+              </>
+            ) : (
+              'Sign In'
+            )}
+          </button>
         </form>
       </div>
     </div>
