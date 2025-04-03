@@ -20,10 +20,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en">
-       <body className={`${berkshireSwash.className} ${roboto.className}`}>
-        <Header /> 
+      <body className={`${berkshireSwash.className} ${roboto.className} d-flex flex-column min-vh-100`}>
+        <Header />
+        <main className="flex-grow-1">
           {children}
-          <Footer />
+        </main>
+        <Footer />
       </body>
     </html>
   );

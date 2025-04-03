@@ -16,6 +16,25 @@ import {
   serverTimestamp 
 } from "firebase/firestore";
 
+// Define types for our data
+/**
+ * @typedef {Object} Schedule
+ * @property {string} id - The document ID
+ * @property {string} userId - The user ID this schedule belongs to
+ * @property {string} userName - The name of the user
+ * @property {string} date - The date of the schedule
+ * @property {string} time - The time of the schedule
+ * @property {string} status - The status of the schedule
+ * @property {Date} [createdAt] - When the schedule was created
+ * @property {Date} [updatedAt] - When the schedule was last updated
+ */
+
+/**
+ * @typedef {Object} ScheduleCheckResult
+ * @property {boolean} exists - Whether a schedule exists
+ * @property {Schedule|null} schedule - The schedule if it exists, null otherwise
+ */
+
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -70,6 +89,59 @@ const createSchedule = async (scheduleData) => {
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp()
   });
+};
+
+// Check if a demo schedule already exists for a given email or mobile number
+/**
+ * @param {string} email - The email to check
+ * @param {string} mobileNumber - The mobile number to check
+ * @returns {Promise<ScheduleCheckResult>} - The result of the check
+ */
+const checkExistingDemoSchedule = async (email, mobileNumber) => {
+  // First, find users with the given email or mobile number
+  const usersQuery = query(
+    usersCollection,
+    where("role", "==", "demo_student"),
+    where("email", "==", email)
+  );
+  
+  const usersSnapshot = await getDocs(usersQuery);
+  const userIds = usersSnapshot.docs.map(doc => doc.id);
+  
+  // If no users found with the email, try mobile number
+  if (userIds.length === 0) {
+    const mobileQuery = query(
+      usersCollection,
+      where("role", "==", "demo_student"),
+      where("mobileNumber", "==", mobileNumber)
+    );
+    
+    const mobileSnapshot = await getDocs(mobileQuery);
+    userIds.push(...mobileSnapshot.docs.map(doc => doc.id));
+  }
+  
+  // If we found any users, check if they have demo schedules
+  if (userIds.length > 0) {
+    for (const userId of userIds) {
+      const scheduleQuery = query(
+        schedulesCollection,
+        where("userId", "==", userId),
+        where("status", "==", "demo_scheduled")
+      );
+      
+      const scheduleSnapshot = await getDocs(scheduleQuery);
+      if (!scheduleSnapshot.empty) {
+        // Return the first matching schedule
+        const schedule = scheduleSnapshot.docs[0];
+        return { 
+          exists: true, 
+          schedule: { id: schedule.id, ...schedule.data() } 
+        };
+      }
+    }
+  }
+  
+  return { exists: false, schedule: null };
 };
 
 const getScheduleById = async (scheduleId) => {
@@ -136,5 +208,6 @@ export {
   getUserSchedules,
   getAllSchedules,
   updateSchedule,
-  deleteSchedule
+  deleteSchedule,
+  checkExistingDemoSchedule
 };

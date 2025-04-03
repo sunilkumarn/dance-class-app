@@ -32,7 +32,15 @@ const DemoScheduleForm: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Add validation for mobile number field
+    if (name === 'mobileNumber') {
+      // Only allow numbers
+      const numericValue = value.replace(/[^0-9]/g, '');
+      setFormData(prev => ({ ...prev, [name]: numericValue }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleDateSelect = (date: Date) => {
@@ -81,9 +89,15 @@ const DemoScheduleForm: React.FC = () => {
         }),
       });
 
+      const data = await response.json();
+      
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to schedule demo class');
+        // Check if this is a duplicate schedule error
+        if (response.status === 409 && data.message) {
+          throw new Error(data.message);
+        } else {
+          throw new Error(data.error || 'Failed to schedule demo class');
+        }
       }
       
       // Redirect to confirmation page

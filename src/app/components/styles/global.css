@@ -12,3 +12,11 @@
 .bg-praakrithi {
     background-color: #f0f4ff
 }
+
+footer {
+    background-color: #f0f4ff;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+}
