@@ -6,16 +6,33 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useAuth } from "@/src/hooks/useAuth";
 import { auth, signOut } from "@/src/lib/firebase";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Header() {
   const { user, loading } = useAuth();
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
   const handleLogout = async () => {
     await signOut(auth);
     window.location.href = "/login";
+  };
+
+  const scrollToDemo = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (pathname !== '/') {
+      // If not on home page, navigate to home page first
+      router.push('/?scrollToDemo=true');
+    } else {
+      // If already on home page, scroll to demo section
+      const demoSection = document.getElementById('free-demo');
+      if (demoSection) {
+        demoSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
 
   return (
@@ -41,7 +58,7 @@ export default function Header() {
             {loading ? (
               // Show a minimal placeholder during loading to avoid layout shifts
               <li className="nav-item">
-                <span className="nav-link opacity-50">Loading...</span>
+                <span className="nav-link opacity-50"></span>
               </li>
             ) : user ? (
               <>
@@ -52,8 +69,11 @@ export default function Header() {
               </>
             ) : (
               <>
-              <li className="nav-item"><Link className="nav-link schedule-demo" href="/schedule-demo">Book a Free Demo Class</Link></li>
-              <li className="nav-item"><Link className="nav-link" href="/login">Student Login</Link></li>
+              <li className="nav-item">
+                <a href="#free-demo" className="nav-link schedule-demo" onClick={scrollToDemo}>
+                  Book a Free Demo Class
+                </a>
+              </li>
               <li className="nav-item">
                 <div className="contact-with-icon">
                   <a className="nav-link" target="_blank" href="https://wa.me/919207759856?text=Hello,%20I%20am%20interested%20in%20learning%20Carnatic%20music!">

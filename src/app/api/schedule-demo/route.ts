@@ -4,6 +4,7 @@ import {
   createSchedule,
   checkExistingDemoSchedule
 } from '@/src/lib/firebase';
+import { scheduleDemoClass } from '@/src/lib/googleCalendar';
 
 // Define the Schedule type based on the JSDoc in firebase.js
 interface Schedule {
@@ -22,11 +23,28 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     
-    // Validate request body
+    // Basic validation
     if (!body.studentName || !body.parentEmail || !body.mobileNumber || 
         !body.dob || !body.selectedDate || !body.selectedTime) {
       return NextResponse.json(
         { error: 'Missing required fields' },
+        { status: 400 }
+      );
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(body.parentEmail)) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      );
+    }
+
+    // Mobile number validation
+    if (body.mobileNumber.length < 10) {
+      return NextResponse.json(
+        { error: 'Invalid mobile number' },
         { status: 400 }
       );
     }
@@ -49,7 +67,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 1. Create a demo user
+    // 1. Create a demo user in Firebase
     const userData = {
       name: body.studentName,
       email: body.parentEmail,
@@ -60,8 +78,8 @@ export async function POST(request: NextRequest) {
     
     const userResult = await createUser(userData);
     const userId = userResult.id;
-    
-    // 2. Create a demo schedule
+
+    // 2. Create a demo schedule in Firebase
     const scheduleData = {
       userId: userId,
       userName: body.studentName,
@@ -71,14 +89,35 @@ export async function POST(request: NextRequest) {
     };
     
     const scheduleResult = await createSchedule(scheduleData);
-    
+
+    // 3. Create calendar event only if Firebase operations are successful
+    const event = await scheduleDemoClass({
+      studentName: body.studentName,
+      parentEmail: body.parentEmail,
+      mobileNumber: body.mobileNumber,
+      dob: body.dob,
+      selectedDate: body.selectedDate,
+      selectedTime: body.selectedTime
+    });
+
     return NextResponse.json({ 
       message: 'Demo class scheduled successfully',
       userId: userId,
-      scheduleId: scheduleResult.id
+      scheduleId: scheduleResult.id,
+      event 
     }, { status: 201 });
-  } catch (error) {
-    console.error('Error scheduling demo class:', error);
+
+  } catch (error: any) {
+    console.error('Error in schedule-demo route:', error);
+    
+    // Check if it's a duplicate event error
+    if (error.code === 409) {
+      return NextResponse.json(
+        { error: 'This time slot is already booked. Please select a different time.' },
+        { status: 409 }
+      );
+    }
+
     return NextResponse.json(
       { error: 'Failed to schedule demo class' },
       { status: 500 }

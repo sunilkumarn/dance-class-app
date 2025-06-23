@@ -84,7 +84,9 @@ const DemoScheduleForm: React.FC = () => {
         },
         body: JSON.stringify({
           ...formData,
-          selectedDate: selectedDate?.toISOString(),
+          selectedDate: selectedDate ? 
+            `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}` : 
+            null,
           selectedTime
         }),
       });
@@ -135,13 +137,13 @@ const DemoScheduleForm: React.FC = () => {
     
     return (
       <div className="calendar">
-        <div className="calendar-header d-flex justify-content-between align-items-center mb-2">
-          <button type="button" onClick={prevMonth} className="btn btn-sm">
-            &lt;
+        <div className="calendar-header">
+          <button type="button" onClick={prevMonth} className="calendar-arrow-btn" aria-label="Previous Month">
+            &#60;
           </button>
           <span>{dateString}</span>
-          <button type="button" onClick={nextMonth} className="btn btn-sm">
-            &gt;
+          <button type="button" onClick={nextMonth} className="calendar-arrow-btn" aria-label="Next Month">
+            &#62;
           </button>
         </div>
         
@@ -166,18 +168,11 @@ const DemoScheduleForm: React.FC = () => {
             const isToday = new Date().toDateString() === date.toDateString();
             const isSelected = selectedDate?.toDateString() === date.toDateString();
             
-            // For demo purposes, show highlighted dates
-            // The number 2 is filled with blue, and 25 has outline style
-            const isDemoHighlighted = day === 2;
-            const isDemoOutlined = day === 25;
-            
             return (
               <div
                 key={day}
                 className={`day ${isToday ? 'today' : ''} 
-                  ${isSelected ? 'selected' : ''} 
-                  ${isDemoHighlighted ? 'selected' : ''} 
-                  ${isDemoOutlined ? 'outlined' : ''}`}
+                  ${isSelected ? 'selected' : ''} `}
                 onClick={() => handleDateSelect(date)}
               >
                 {day}
@@ -190,7 +185,7 @@ const DemoScheduleForm: React.FC = () => {
   };
 
   // Time slots
-  const timeSlots = ['9:00 AM', '11:00 AM', '2:00 PM'];
+  const timeSlots = ['11:00 AM', '3:00 PM', '8:00 PM'];
 
   return (
     <div className="row">
@@ -277,7 +272,7 @@ const DemoScheduleForm: React.FC = () => {
           disabled={isLoading || !selectedDate || !selectedTime || !formData.studentName || !formData.parentEmail || !formData.mobileNumber || !formData.dob}
           onClick={handleSubmit}
         >
-          {isLoading ? 'Scheduling...' : 'Schedule Demo Class'}
+          {isLoading ? 'Scheduling...' : 'Schedule'}
         </button>
       </div>
     </div>

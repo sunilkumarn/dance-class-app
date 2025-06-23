@@ -1,3 +1,94 @@
+:root {
+  --color-bg-primary: #FDF6F0;
+  --color-bg-header-footer: #FAF5F1;
+  --color-bg-card: #F2E3D5;
+  --color-bg-calendar: #F2E9DD	;
+  --color-btn-primary: #C99C49;
+  --color-btn-navbar: #7B3F3F;
+  --color-text-body: #3D3D3D;
+  --color-text-heading: #6C3E3E;
+  --color-accent: #D97766;
+}
+
+body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-body);
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-heading);
+  font-family: "Berkshire Swash", serif;
+  font-weight: normal;
+}
+
+h2 {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background-color: var(--color-accent);
+}
+
+/* Footer */
+footer, .footer, .site-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+  font-family: "Berkshire Swash", serif;
+}
+
+header, .navbar, .navbar-expand-lg, .footer {
+  background: var(--color-bg-header-footer) !important;
+  color: #fff !important;
+}
+
+.card, .bg-card, .demo-form-container, .testimonial, .container-box, .bg-light {
+  background: var(--color-bg-card) !important;
+  color: var(--color-text-body);
+}
+
+.btn-primary, button.btn-primary, .schedule-demo {
+  background: var(--color-btn-primary) !important;
+  border-color: var(--color-btn-primary) !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover, button.btn-primary:hover, .schedule-demo:hover {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: #fff !important;
+}
+
+.navbar .btn, .navbar .btn-primary, .navbar .schedule-demo {
+  background: var(--color-btn-navbar) !important;
+  border-color: var(--color-btn-navbar) !important;
+  color: #fff !important;
+}
+
+a, .nav-link {
+  color: var(--color-btn-navbar);
+  transition: color 0.2s;
+}
+
+a:hover, .nav-link:hover {
+  color: var(--color-accent) !important;
+}
+
+/* Calendar background (for calendar containers) */
+.calendar, .calendar-bg {
+  background: var(--color-bg-calendar) !important;
+}
+
 .container-box {
     background-image: url('/images/hero-background.jpeg');
     background-size: cover;
@@ -9,14 +100,26 @@
     font-family: "Berkshire Swash", serif;
 }
 
-.bg-praakrithi {
-    background-color: #f0f4ff
+input, textarea, select {
+  background-color: #FBF6F0;
+  border: 1px solid #E2D9D1;
+  color: #3D3D3D;
+  padding: 10px 12px;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
-footer {
-    background-color: #f0f4ff;
-    padding: 1rem 0;
-    text-align: center;
-    width: 100%;
-    margin-top: auto;
+input::placeholder,
+textarea::placeholder {
+  color: #999;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #C99C49;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(201, 156, 73, 0.2); /* Gold focus ring */
 }
