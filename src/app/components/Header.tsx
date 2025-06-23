@@ -71,7 +71,7 @@ export default function Header() {
               <>
               <li className="nav-item">
                 <a href="#free-demo" className="nav-link schedule-demo" onClick={scrollToDemo}>
-                  Book a Free Demo Class
+                  Schedule a Demo Class
                 </a>
               </li>
               <li className="nav-item">

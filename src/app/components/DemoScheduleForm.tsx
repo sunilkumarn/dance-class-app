@@ -121,69 +121,6 @@ const DemoScheduleForm: React.FC = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
   };
 
-  // Generate calendar days
-  const generateCalendar = () => {
-    const year = currentMonth.getFullYear();
-    const month = currentMonth.getMonth();
-    
-    // Get the first day of the month
-    const firstDay = new Date(year, month, 1);
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
-    const dateString = currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' });
-    
-    // Create header with day names
-    const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-    
-    return (
-      <div className="calendar">
-        <div className="calendar-header">
-          <button type="button" onClick={prevMonth} className="calendar-arrow-btn" aria-label="Previous Month">
-            &#60;
-          </button>
-          <span>{dateString}</span>
-          <button type="button" onClick={nextMonth} className="calendar-arrow-btn" aria-label="Next Month">
-            &#62;
-          </button>
-        </div>
-        
-        <div className="calendar-days">
-          {dayNames.map(day => (
-            <div key={day} className="day-name">
-              {day}
-            </div>
-          ))}
-        </div>
-        
-        <div className="calendar-grid">
-          {Array.from({ length: firstDay.getDay() }).map((_, index) => (
-            <div key={`empty-${index}`} className="day empty"></div>
-          ))}
-          
-          {Array.from({ length: daysInMonth }).map((_, index) => {
-            const day = index + 1;
-            const date = new Date(year, month, day);
-            
-            // Check if this date is today or selected
-            const isToday = new Date().toDateString() === date.toDateString();
-            const isSelected = selectedDate?.toDateString() === date.toDateString();
-            
-            return (
-              <div
-                key={day}
-                className={`day ${isToday ? 'today' : ''} 
-                  ${isSelected ? 'selected' : ''} `}
-                onClick={() => handleDateSelect(date)}
-              >
-                {day}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
   // Time slots
   const timeSlots = ['11:00 AM', '3:00 PM', '8:00 PM'];
 
@@ -207,7 +144,7 @@ const DemoScheduleForm: React.FC = () => {
           </div>
           
           <div className="mb-3">
-            <label htmlFor="parentEmail" className="form-label">Parent's Email</label>
+            <label htmlFor="parentEmail" className="form-label">Contact Email</label>
             <input
               type="email"
               id="parentEmail"
@@ -248,21 +185,60 @@ const DemoScheduleForm: React.FC = () => {
       </div>
       
       <div className="col-md-6">
-        {generateCalendar()}
-        
-        {selectedDate && (
-          <div className="time-slots mt-3">
-            {timeSlots.map(time => (
-              <div 
-                key={time} 
-                className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
-                onClick={() => handleTimeSelect(time)}
-              >
-                {time}
+        <label htmlFor="dob" className="form-label">Pick a 30 minute slot for your demo class</label>
+        <div>
+          <div className="calendar">
+            <div className="calendar-header">
+              <button type="button" onClick={prevMonth} className="calendar-arrow-btn" aria-label="Previous Month">
+                &#60;
+              </button>
+              <span>{currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
+              <button type="button" onClick={nextMonth} className="calendar-arrow-btn" aria-label="Next Month">
+                &#62;
+              </button>
+            </div>
+            <div className="calendar-days">
+              {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
+                <div key={day} className="day-name">
+                  {day}
+                </div>
+              ))}
+            </div>
+            <div className="calendar-grid">
+              {Array.from({ length: new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay() }).map((_, index) => (
+                <div key={`empty-${index}`} className="day empty"></div>
+              ))}
+              {Array.from({ length: new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate() }).map((_, index) => {
+                const day = index + 1;
+                const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+                const isToday = new Date().toDateString() === date.toDateString();
+                const isSelected = selectedDate?.toDateString() === date.toDateString();
+                return (
+                  <div
+                    key={day}
+                    className={`day ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''}`}
+                    onClick={() => handleDateSelect(date)}
+                  >
+                    {day}
+                  </div>
+                );
+              })}
+            </div>
+            {selectedDate && (
+              <div className="time-slots mt-3">
+                {timeSlots.map(time => (
+                  <div 
+                    key={time} 
+                    className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
+                    onClick={() => handleTimeSelect(time)}
+                  >
+                    {time}
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        )}
+        </div>
       </div>
       
       <div className="col-12 mt-4 text-center">

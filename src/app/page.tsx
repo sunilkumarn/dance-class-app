@@ -50,7 +50,7 @@ export default function Home() {
                 No commitments — just music, connection, and clarity.
               </p>
               <Link href="/schedule-demo" className="btn btn-primary px-4 py-2">
-                Schedule a Demo Class
+                Schedule a free Demo Class
               </Link>
             </div>
           </div>
