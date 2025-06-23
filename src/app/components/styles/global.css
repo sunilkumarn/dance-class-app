@@ -101,7 +101,7 @@ a:hover, .nav-link:hover {
 }
 
 input, textarea, select {
-  background-color: #FBF6F0;
+  background-color: #FBF6F0 !important;
   border: 1px solid #E2D9D1;
   color: #3D3D3D;
   padding: 10px 12px;
