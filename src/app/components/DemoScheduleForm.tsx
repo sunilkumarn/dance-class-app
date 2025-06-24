@@ -340,7 +340,7 @@ const DemoScheduleForm: React.FC = () => {
           }
           onClick={handleSubmit}
         >
-          {isLoading ? "Scheduling..." : "Schedule your demo class"}
+          {isLoading ? "Scheduling your demo class..." : "Schedule your demo class"}
         </button>
       </div>
     </div>
