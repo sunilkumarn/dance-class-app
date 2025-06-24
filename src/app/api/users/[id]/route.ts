@@ -4,11 +4,11 @@ import { getUserById, updateUser } from "@/src/lib/firebase";
 // GET /api/users/:id - Get a specific user
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const userId = params.id;
-    const user = await getUserById(userId);
+    const { id } = await params;
+    const user = await getUserById(id);
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -24,14 +24,14 @@ export async function GET(
 // PATCH /api/users/:id - Update a user
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const userId = params.id;
+    const { id } = await params;
     const body = await request.json();
 
     // Check if user exists
-    const existingUser = await getUserById(userId);
+    const existingUser = await getUserById(id);
     if (!existingUser) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -44,7 +44,7 @@ export async function PATCH(
     // Only allow role update if explicitly provided (careful with this in production!)
     if (body.role) updatedData.role = body.role;
 
-    await updateUser(userId, updatedData);
+    await updateUser(id, updatedData);
 
     return NextResponse.json({
       message: "User updated successfully",

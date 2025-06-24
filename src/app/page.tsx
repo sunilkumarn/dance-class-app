@@ -3,14 +3,12 @@ import Head from "next/head";
 import Testimonials from "./components/Testimonials";
 import ScrollIndicator from "./components/ScrollIndicator";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function Home() {
+function ScrollToDemoEffect() {
   const searchParams = useSearchParams();
-
   useEffect(() => {
-    // Check if we should scroll to demo section
     if (searchParams.get("scrollToDemo") === "true") {
       const demoSection = document.getElementById("free-demo");
       if (demoSection) {
@@ -18,12 +16,18 @@ export default function Home() {
       }
     }
   }, [searchParams]);
+  return null;
+}
 
+export default function Home() {
   return (
     <>
       <Head>
         <title>Praakrithi School of Music</title>
       </Head>
+      <Suspense>
+        <ScrollToDemoEffect />
+      </Suspense>
       <section className="hero">
         <div className="hero-content" id="hero-content-intro">
           <h2>Praakrithi School of Music</h2>

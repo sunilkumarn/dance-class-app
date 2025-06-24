@@ -8,11 +8,11 @@ import {
 // GET /api/schedules/:id - Get a specific schedule
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const scheduleId = params.id;
-    const schedule = await getScheduleById(scheduleId);
+    const { id } = await params;
+    const schedule = await getScheduleById(id);
 
     if (!schedule) {
       return NextResponse.json(
@@ -30,14 +30,14 @@ export async function GET(
 // PATCH /api/schedules/:id - Update a schedule
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const scheduleId = params.id;
+    const { id } = await params;
     const body = await request.json();
 
     // Check if schedule exists
-    const existingSchedule = await getScheduleById(scheduleId);
+    const existingSchedule = await getScheduleById(id);
     if (!existingSchedule) {
       return NextResponse.json(
         { error: "Schedule not found" },
@@ -51,7 +51,7 @@ export async function PATCH(
     if (body.time) updatedData.time = body.time;
     if (body.status) updatedData.status = body.status;
 
-    await updateSchedule(scheduleId, updatedData);
+    await updateSchedule(id, updatedData);
 
     return NextResponse.json({
       message: "Schedule updated successfully",
@@ -68,13 +68,13 @@ export async function PATCH(
 // DELETE /api/schedules/:id - Delete a schedule
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const scheduleId = params.id;
+    const { id } = await params;
 
     // Check if schedule exists
-    const existingSchedule = await getScheduleById(scheduleId);
+    const existingSchedule = await getScheduleById(id);
     if (!existingSchedule) {
       return NextResponse.json(
         { error: "Schedule not found" },
@@ -82,7 +82,7 @@ export async function DELETE(
       );
     }
 
-    await deleteSchedule(scheduleId);
+    await deleteSchedule(id);
 
     return NextResponse.json({
       message: "Schedule deleted successfully",
