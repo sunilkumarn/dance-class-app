@@ -1,4 +1,5 @@
 import { google } from "googleapis";
+import { start } from "repl";
 
 export const scheduleDemoClass = async (
   eventDetails: {
@@ -24,6 +25,7 @@ export const scheduleDemoClass = async (
     // Parse the date and time
     const [year, month, day] = eventDetails.selectedDate.split("-").map(Number);
     const [timeStr, period] = eventDetails.selectedTime.split(" ");
+
     const [hoursStr, minutesStr] = timeStr.split(":");
     let hours = parseInt(hoursStr);
     const minutes = parseInt(minutesStr);
@@ -40,15 +42,16 @@ export const scheduleDemoClass = async (
       const localDate = new Date(date.getTime() - offset * 60 * 1000);
       return localDate.toISOString();
     };
+
     const event = {
       summary: `Demo Music Class - ${eventDetails.studentName}`,
       description: `\nStudent Name: ${eventDetails.studentName}\nParent's Email: ${eventDetails.parentEmail}\nMobile Number: ${eventDetails.mobileNumber}\nDate of Birth: ${eventDetails.dob}\n`,
       start: {
-        dateTime: formatDateToISO(startTime),
+        dateTime: startTime,
         timeZone: "Asia/Kolkata",
       },
       end: {
-        dateTime: formatDateToISO(endTime),
+        dateTime: endTime,
         timeZone: "Asia/Kolkata",
       },
       attendees: [

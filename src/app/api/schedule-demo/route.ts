@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error: "A demo class has already been scheduled",
-          message: `A demo class has already been scheduled for ${schedule.date} at ${schedule.time}`,
+          message: `A demo class has already been scheduled by you for ${schedule.date} at ${schedule.time}.`,
           existingSchedule: schedule,
         },
         { status: 409 }, // 409 Conflict

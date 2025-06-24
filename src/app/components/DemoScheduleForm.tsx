@@ -133,6 +133,36 @@ const DemoScheduleForm: React.FC = () => {
   // Time slots
   const timeSlots = ["11:00 AM", "3:00 PM", "8:00 PM"];
 
+  // Helper to format slot display
+  const getSlotDisplay = (slot: string) => {
+    // Parse time and period
+    const [time, period] = slot.split(" ");
+    let [hour, minute] = time.split(":").map(Number);
+    let endHour = hour;
+    let endMinute = minute + 30;
+    let endPeriod = period;
+    if (endMinute >= 60) {
+      endMinute -= 60;
+      endHour += 1;
+      // Handle AM/PM switch
+      if (endHour === 12) {
+        endPeriod = period === "AM" ? "PM" : "AM";
+      } else if (endHour > 12) {
+        endHour -= 12;
+        endPeriod = period === "AM" ? "PM" : "AM";
+      }
+    }
+    const pad = (n: number) => n.toString().padStart(2, "0");
+    const endTime = `${endHour}:${pad(endMinute)} ${endPeriod}`;
+    return `${slot} - ${endTime}`;
+  };
+
+  // Calculate the minimum selectable date (tomorrow)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const minSelectableDate = new Date(today);
+  minSelectableDate.setDate(today.getDate() + 1);
+
   return (
     <div className="row">
       <div className="col-md-6 mb-4 mb-md-0">
@@ -265,11 +295,13 @@ const DemoScheduleForm: React.FC = () => {
                   new Date().toDateString() === date.toDateString();
                 const isSelected =
                   selectedDate?.toDateString() === date.toDateString();
+                const isDisabled = date < minSelectableDate;
                 return (
                   <div
                     key={day}
-                    className={`day ${isToday ? "today" : ""} ${isSelected ? "selected" : ""}`}
-                    onClick={() => handleDateSelect(date)}
+                    className={`day${isToday ? " today" : ""}${isSelected ? " selected" : ""}${isDisabled ? " disabled" : ""}`}
+                    onClick={isDisabled ? undefined : () => handleDateSelect(date)}
+                    style={isDisabled ? { pointerEvents: "none", opacity: 0.5 } : {}}
                   >
                     {day}
                   </div>
@@ -284,7 +316,7 @@ const DemoScheduleForm: React.FC = () => {
                     className={`time-slot ${selectedTime === time ? "selected" : ""}`}
                     onClick={() => handleTimeSelect(time)}
                   >
-                    {time}
+                    {getSlotDisplay(time)}
                   </div>
                 ))}
               </div>
@@ -308,7 +340,7 @@ const DemoScheduleForm: React.FC = () => {
           }
           onClick={handleSubmit}
         >
-          {isLoading ? "Scheduling..." : "Schedule"}
+          {isLoading ? "Scheduling..." : "Schedule your demo class"}
         </button>
       </div>
     </div>
