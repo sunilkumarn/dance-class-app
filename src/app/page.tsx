@@ -56,7 +56,7 @@ export default function Home() {
           <div className="row justify-content-center">
             <div className="col-lg-8 text-center">
               <h2 className="mb-4">Start with a Free Demo Class</h2>
-              <p className="mb-4">
+              <p className="mb-4 mt-4">
                 Before you begin your musical journey with us, we invite you to
                 experience a free one-on-one demo session with our instructor.
                 This session helps both the student and teacher understand each
