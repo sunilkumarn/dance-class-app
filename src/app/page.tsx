@@ -57,7 +57,7 @@ export default function Home() {
                 experience a free one-on-one demo session with our instructor.
                 This session helps both the student and teacher understand each
                 other better — to assess comfort, skill level, and expectations.
-                It's a relaxed space where we can explore your interests,
+                It&apos;s a relaxed space where we can explore your interests,
                 discuss your goals, and find the perfect time slot for your
                 regular classes. No commitments — just music, connection, and
                 clarity.

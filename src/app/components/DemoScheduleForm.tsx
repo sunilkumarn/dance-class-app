@@ -110,8 +110,8 @@ const DemoScheduleForm: React.FC = () => {
 
       // Redirect to confirmation page
       router.push("/demo-confirmation");
-    } catch (err: any) {
-      setError(err.message || "Failed to schedule demo class");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to schedule demo class');
     } finally {
       setIsLoading(false);
     }
@@ -141,7 +141,7 @@ const DemoScheduleForm: React.FC = () => {
 
           <div className="mb-3">
             <label htmlFor="studentName" className="form-label">
-              Student's Name
+              Student&apos;s Name
             </label>
             <input
               type="text"

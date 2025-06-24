@@ -4,7 +4,6 @@ import {
   getAllSchedules,
   getUserSchedules,
 } from "@/src/lib/firebase";
-import { auth } from "@/src/lib/firebase";
 
 // GET /api/schedules - Get all schedules or user-specific schedules
 export async function GET(request: NextRequest) {

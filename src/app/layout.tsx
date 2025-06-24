@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   useEffect(() => {
     // Import Bootstrap JS on the client side
-    require("bootstrap/dist/js/bootstrap.bundle.min.js");
+    // Remove the inline module declaration from this file. It should be placed in a global.d.ts file instead.
   }, []);
 
   return (

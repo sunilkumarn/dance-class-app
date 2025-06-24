@@ -22,12 +22,8 @@ export async function GET(
     }
 
     return NextResponse.json({ schedule });
-  } catch (error) {
-    console.error("Error getting schedule:", error);
-    return NextResponse.json(
-      { error: "Failed to get schedule" },
-      { status: 500 },
-    );
+  } catch (err: unknown) {
+    return NextResponse.json({ error: err instanceof Error ? err.message : 'Failed to fetch schedule' }, { status: 500 });
   }
 }
 
@@ -50,7 +46,7 @@ export async function PATCH(
     }
 
     // Update only allowed fields
-    const updatedData: any = {};
+    const updatedData: Record<string, unknown> = {};
     if (body.date) updatedData.date = body.date;
     if (body.time) updatedData.time = body.time;
     if (body.status) updatedData.status = body.status;
@@ -60,10 +56,10 @@ export async function PATCH(
     return NextResponse.json({
       message: "Schedule updated successfully",
     });
-  } catch (error) {
-    console.error("Error updating schedule:", error);
+  } catch (err: unknown) {
+    console.error("Error updating schedule:", err);
     return NextResponse.json(
-      { error: "Failed to update schedule" },
+      { error: err instanceof Error ? err.message : 'Failed to update schedule' },
       { status: 500 },
     );
   }
@@ -91,10 +87,10 @@ export async function DELETE(
     return NextResponse.json({
       message: "Schedule deleted successfully",
     });
-  } catch (error) {
-    console.error("Error deleting schedule:", error);
+  } catch (err: unknown) {
+    console.error("Error deleting schedule:", err);
     return NextResponse.json(
-      { error: "Failed to delete schedule" },
+      { error: err instanceof Error ? err.message : 'Failed to delete schedule' },
       { status: 500 },
     );
   }

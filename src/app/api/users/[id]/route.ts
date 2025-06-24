@@ -15,9 +15,9 @@ export async function GET(
     }
 
     return NextResponse.json({ user });
-  } catch (error) {
-    console.error("Error getting user:", error);
-    return NextResponse.json({ error: "Failed to get user" }, { status: 500 });
+  } catch (err: unknown) {
+    console.error("Error getting user:", err);
+    return NextResponse.json({ error: err instanceof Error ? err.message : 'Failed to fetch user' }, { status: 500 });
   }
 }
 
@@ -37,7 +37,7 @@ export async function PATCH(
     }
 
     // Update only allowed fields
-    const updatedData: any = {};
+    const updatedData: Record<string, unknown> = {};
     if (body.name) updatedData.name = body.name;
     if (body.dob) updatedData.dob = body.dob;
     if (body.mobileNumber) updatedData.mobileNumber = body.mobileNumber;
@@ -49,10 +49,10 @@ export async function PATCH(
     return NextResponse.json({
       message: "User updated successfully",
     });
-  } catch (error) {
-    console.error("Error updating user:", error);
+  } catch (err: unknown) {
+    console.error("Error updating user:", err);
     return NextResponse.json(
-      { error: "Failed to update user" },
+      { error: err instanceof Error ? err.message : 'Failed to update user' },
       { status: 500 },
     );
   }

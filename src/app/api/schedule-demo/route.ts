@@ -115,11 +115,16 @@ export async function POST(request: NextRequest) {
       },
       { status: 201 },
     );
-  } catch (error: any) {
-    console.error("Error in schedule-demo route:", error);
+  } catch (err: unknown) {
+    console.error("Error in schedule-demo route:", err);
 
     // Check if it's a duplicate event error
-    if (error.code === 409) {
+    if (
+      typeof err === 'object' &&
+      err !== null &&
+      'code' in err &&
+      (err as { code?: unknown }).code === 409
+    ) {
       return NextResponse.json(
         {
           error:

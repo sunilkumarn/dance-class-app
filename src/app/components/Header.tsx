@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useAuth } from "@/src/hooks/useAuth";
 import { auth, signOut } from "@/src/lib/firebase";
 import { useRouter, usePathname } from "next/navigation";
+import Image from 'next/image';
 
 export default function Header() {
   const { user, loading } = useAuth();
@@ -39,7 +40,7 @@ export default function Header() {
     <nav className="navbar navbar-expand-lg">
       <div className="container">
         <Link className="navbar-brand" href="/">
-          <img src="/images/logo.svg" alt="Praakrithi School of Music Logo" />
+          <Image src="/images/logo.svg" alt="Praakrithi School of Music Logo" width={100} height={50} />
         </Link>
 
         <button

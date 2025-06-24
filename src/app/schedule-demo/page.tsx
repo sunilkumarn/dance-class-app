@@ -1,5 +1,4 @@
 import DemoScheduleForm from "../components/DemoScheduleForm";
-import Link from "next/link";
 import "../components/styles/demo-schedule.css";
 
 export const metadata = {

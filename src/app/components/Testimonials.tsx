@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
+import Image from 'next/image';
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -56,7 +57,7 @@ export default function Testimonials() {
                   <p className="description">{t.text}</p>
                   <div className="testimonial-content">
                     <div className="pic">
-                      <img src={t.img} alt={t.name} />
+                      <Image src={t.img} alt={t.name} width={100} height={100} />
                     </div>
                     <h3 className="title">{t.name}</h3>
                   </div>
