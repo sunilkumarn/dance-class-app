@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface DemoFormData {
@@ -29,6 +29,8 @@ const DemoScheduleForm: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>("");
+
+  const [bookedTimes, setBookedTimes] = useState<string[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -162,6 +164,17 @@ const DemoScheduleForm: React.FC = () => {
   today.setHours(0, 0, 0, 0);
   const minSelectableDate = new Date(today);
   minSelectableDate.setDate(today.getDate() + 1);
+
+  useEffect(() => {
+    if (selectedDate) {
+      const dateStr = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
+      fetch(`/api/schedules/booked?date=${dateStr}`)
+        .then(res => res.json())
+        .then(data => setBookedTimes(data.bookedTimes || []));
+    } else {
+      setBookedTimes([]);
+    }
+  }, [selectedDate]);
 
   return (
     <div className="row">
@@ -310,15 +323,17 @@ const DemoScheduleForm: React.FC = () => {
             </div>
             {selectedDate && (
               <div className="time-slots mt-3">
-                {timeSlots.map((time) => (
-                  <div
-                    key={time}
-                    className={`time-slot ${selectedTime === time ? "selected" : ""}`}
-                    onClick={() => handleTimeSelect(time)}
-                  >
-                    {getSlotDisplay(time)}
-                  </div>
-                ))}
+                {timeSlots
+                  .filter(time => !bookedTimes.includes(time))
+                  .map((time) => (
+                    <div
+                      key={time}
+                      className={`time-slot ${selectedTime === time ? "selected" : ""}`}
+                      onClick={() => handleTimeSelect(time)}
+                    >
+                      {getSlotDisplay(time)}
+                    </div>
+                  ))}
               </div>
             )}
           </div>
