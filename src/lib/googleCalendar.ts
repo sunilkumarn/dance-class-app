@@ -1,4 +1,5 @@
 import { google } from "googleapis";
+import { DateTime } from "luxon";
 
 export const scheduleDemoClass = async (
   eventDetails: {
@@ -24,7 +25,6 @@ export const scheduleDemoClass = async (
     // Parse the date and time
     const [year, month, day] = eventDetails.selectedDate.split("-").map(Number);
     const [timeStr, period] = eventDetails.selectedTime.split(" ");
-
     const [hoursStr, minutesStr] = timeStr.split(":");
     let hours = parseInt(hoursStr);
     const minutes = parseInt(minutesStr);
@@ -33,18 +33,23 @@ export const scheduleDemoClass = async (
     } else if (period === "AM" && hours === 12) {
       hours = 0;
     }
-    const startTime = new Date(year, month - 1, day, hours, minutes);
-    const endTime = new Date(startTime.getTime() + 30 * 60 * 1000);
+
+    // Use luxon to create the time in Asia/Kolkata
+    const startTime = DateTime.fromObject(
+      { year, month, day, hour: hours, minute: minutes },
+      { zone: "Asia/Kolkata" }
+    );
+    const endTime = startTime.plus({ minutes: 30 });
 
     const event = {
       summary: `Demo Music Class - ${eventDetails.studentName}`,
       description: `\nStudent Name: ${eventDetails.studentName}\nParent's Email: ${eventDetails.parentEmail}\nMobile Number: ${eventDetails.mobileNumber}\nDate of Birth: ${eventDetails.dob}\n`,
       start: {
-        dateTime: startTime.toISOString(),
+        dateTime: startTime.toISO(),
         timeZone: "Asia/Kolkata",
       },
       end: {
-        dateTime: endTime.toISOString(),
+        dateTime: endTime.toISO(),
         timeZone: "Asia/Kolkata",
       },
       attendees: [
