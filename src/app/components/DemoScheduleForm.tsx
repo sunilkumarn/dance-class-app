@@ -137,7 +137,7 @@ const DemoScheduleForm: React.FC = () => {
   const getSlotDisplay = (slot: string) => {
     // Parse time and period
     const [time, period] = slot.split(" ");
-    let [hour, minute] = time.split(":").map(Number);
+    const [hour, minute] = time.split(":").map(Number);
     let endHour = hour;
     let endMinute = minute + 30;
     let endPeriod = period;

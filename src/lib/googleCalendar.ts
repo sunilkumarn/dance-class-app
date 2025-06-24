@@ -1,5 +1,4 @@
 import { google } from "googleapis";
-import { start } from "repl";
 
 export const scheduleDemoClass = async (
   eventDetails: {
@@ -37,21 +36,15 @@ export const scheduleDemoClass = async (
     const startTime = new Date(year, month - 1, day, hours, minutes);
     const endTime = new Date(startTime.getTime() + 30 * 60 * 1000);
 
-    const formatDateToISO = (date: Date) => {
-      const offset = date.getTimezoneOffset();
-      const localDate = new Date(date.getTime() - offset * 60 * 1000);
-      return localDate.toISOString();
-    };
-
     const event = {
       summary: `Demo Music Class - ${eventDetails.studentName}`,
       description: `\nStudent Name: ${eventDetails.studentName}\nParent's Email: ${eventDetails.parentEmail}\nMobile Number: ${eventDetails.mobileNumber}\nDate of Birth: ${eventDetails.dob}\n`,
       start: {
-        dateTime: startTime,
+        dateTime: startTime.toISOString(),
         timeZone: "Asia/Kolkata",
       },
       end: {
-        dateTime: endTime,
+        dateTime: endTime.toISOString(),
         timeZone: "Asia/Kolkata",
       },
       attendees: [
