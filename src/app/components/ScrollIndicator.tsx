@@ -11,8 +11,16 @@ export default function ScrollIndicator() {
   };
 
   return (
-    <div className="scroll-indicator" onClick={scrollToFreeDemo} style={{ cursor: "pointer", textAlign: "center" }}>
-      <FontAwesomeIcon icon={faChevronDown} size="2x" style={{ color: "white" }} />
+    <div
+      className="scroll-indicator"
+      onClick={scrollToFreeDemo}
+      style={{ cursor: "pointer", textAlign: "center" }}
+    >
+      <FontAwesomeIcon
+        icon={faChevronDown}
+        size="2x"
+        style={{ color: "white" }}
+      />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface DemoFormData {
   studentName: string;
@@ -15,98 +15,103 @@ interface DemoFormData {
 const DemoScheduleForm: React.FC = () => {
   const router = useRouter();
   const [formData, setFormData] = useState<DemoFormData>({
-    studentName: '',
-    parentEmail: '',
-    mobileNumber: '',
-    dob: '',
+    studentName: "",
+    parentEmail: "",
+    mobileNumber: "",
+    dob: "",
     selectedDate: null,
-    selectedTime: ''
+    selectedTime: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   // Calendar state
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string>('');
+  const [selectedTime, setSelectedTime] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    
+
     // Add validation for mobile number field
-    if (name === 'mobileNumber') {
+    if (name === "mobileNumber") {
       // Only allow numbers
-      const numericValue = value.replace(/[^0-9]/g, '');
-      setFormData(prev => ({ ...prev, [name]: numericValue }));
+      const numericValue = value.replace(/[^0-9]/g, "");
+      setFormData((prev) => ({ ...prev, [name]: numericValue }));
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
-    setFormData(prev => ({ ...prev, selectedDate: date }));
+    setFormData((prev) => ({ ...prev, selectedDate: date }));
   };
 
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time);
-    setFormData(prev => ({ ...prev, selectedTime: time }));
+    setFormData((prev) => ({ ...prev, selectedTime: time }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
       // Basic validation
-      if (!formData.studentName || !formData.parentEmail || !formData.mobileNumber || 
-          !formData.dob || !selectedDate || !selectedTime) {
-        throw new Error('Please fill in all required fields');
+      if (
+        !formData.studentName ||
+        !formData.parentEmail ||
+        !formData.mobileNumber ||
+        !formData.dob ||
+        !selectedDate ||
+        !selectedTime
+      ) {
+        throw new Error("Please fill in all required fields");
       }
 
       // Email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.parentEmail)) {
-        throw new Error('Please enter a valid email address');
+        throw new Error("Please enter a valid email address");
       }
 
       // Mobile number validation (simple check for now)
       if (formData.mobileNumber.length < 10) {
-        throw new Error('Please enter a valid mobile number');
+        throw new Error("Please enter a valid mobile number");
       }
 
       // Submit to API
-      const response = await fetch('/api/schedule-demo', {
-        method: 'POST',
+      const response = await fetch("/api/schedule-demo", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...formData,
-          selectedDate: selectedDate ? 
-            `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}` : 
-            null,
-          selectedTime
+          selectedDate: selectedDate
+            ? `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`
+            : null,
+          selectedTime,
         }),
       });
 
       const data = await response.json();
-      
+
       if (!response.ok) {
         // Check if this is a duplicate schedule error
         if (response.status === 409 && data.message) {
           throw new Error(data.message);
         } else {
-          throw new Error(data.error || 'Failed to schedule demo class');
+          throw new Error(data.error || "Failed to schedule demo class");
         }
       }
-      
+
       // Redirect to confirmation page
-      router.push('/demo-confirmation');
-      
+      router.push("/demo-confirmation");
     } catch (err: any) {
-      setError(err.message || 'Failed to schedule demo class');
+      setError(err.message || "Failed to schedule demo class");
     } finally {
       setIsLoading(false);
     }
@@ -114,24 +119,30 @@ const DemoScheduleForm: React.FC = () => {
 
   // Calendar navigation
   const prevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1),
+    );
   };
 
   const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1),
+    );
   };
 
   // Time slots
-  const timeSlots = ['11:00 AM', '3:00 PM', '8:00 PM'];
+  const timeSlots = ["11:00 AM", "3:00 PM", "8:00 PM"];
 
   return (
     <div className="row">
       <div className="col-md-6 mb-4 mb-md-0">
         <form onSubmit={handleSubmit}>
           {error && <div className="alert alert-danger mb-3">{error}</div>}
-          
+
           <div className="mb-3">
-            <label htmlFor="studentName" className="form-label">Student's Name</label>
+            <label htmlFor="studentName" className="form-label">
+              Student's Name
+            </label>
             <input
               type="text"
               id="studentName"
@@ -142,9 +153,11 @@ const DemoScheduleForm: React.FC = () => {
               required
             />
           </div>
-          
+
           <div className="mb-3">
-            <label htmlFor="parentEmail" className="form-label">Contact Email</label>
+            <label htmlFor="parentEmail" className="form-label">
+              Contact Email
+            </label>
             <input
               type="email"
               id="parentEmail"
@@ -155,9 +168,11 @@ const DemoScheduleForm: React.FC = () => {
               required
             />
           </div>
-          
+
           <div className="mb-3">
-            <label htmlFor="mobileNumber" className="form-label">Mobile Number</label>
+            <label htmlFor="mobileNumber" className="form-label">
+              Mobile Number
+            </label>
             <input
               type="tel"
               id="mobileNumber"
@@ -168,9 +183,11 @@ const DemoScheduleForm: React.FC = () => {
               required
             />
           </div>
-          
+
           <div className="mb-3">
-            <label htmlFor="dob" className="form-label">Date of Birth</label>
+            <label htmlFor="dob" className="form-label">
+              Date of Birth
+            </label>
             <input
               type="date"
               id="dob"
@@ -183,40 +200,75 @@ const DemoScheduleForm: React.FC = () => {
           </div>
         </form>
       </div>
-      
+
       <div className="col-md-6">
-        <label htmlFor="dob" className="form-label">Pick a 30 minute slot for your demo class</label>
+        <label htmlFor="dob" className="form-label">
+          Pick a 30 minute slot for your demo class
+        </label>
         <div>
           <div className="calendar">
             <div className="calendar-header">
-              <button type="button" onClick={prevMonth} className="calendar-arrow-btn" aria-label="Previous Month">
+              <button
+                type="button"
+                onClick={prevMonth}
+                className="calendar-arrow-btn"
+                aria-label="Previous Month"
+              >
                 &#60;
               </button>
-              <span>{currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
-              <button type="button" onClick={nextMonth} className="calendar-arrow-btn" aria-label="Next Month">
+              <span>
+                {currentMonth.toLocaleString("default", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+              <button
+                type="button"
+                onClick={nextMonth}
+                className="calendar-arrow-btn"
+                aria-label="Next Month"
+              >
                 &#62;
               </button>
             </div>
             <div className="calendar-days">
-              {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
+              {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
                 <div key={day} className="day-name">
                   {day}
                 </div>
               ))}
             </div>
             <div className="calendar-grid">
-              {Array.from({ length: new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay() }).map((_, index) => (
+              {Array.from({
+                length: new Date(
+                  currentMonth.getFullYear(),
+                  currentMonth.getMonth(),
+                  1,
+                ).getDay(),
+              }).map((_, index) => (
                 <div key={`empty-${index}`} className="day empty"></div>
               ))}
-              {Array.from({ length: new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate() }).map((_, index) => {
+              {Array.from({
+                length: new Date(
+                  currentMonth.getFullYear(),
+                  currentMonth.getMonth() + 1,
+                  0,
+                ).getDate(),
+              }).map((_, index) => {
                 const day = index + 1;
-                const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-                const isToday = new Date().toDateString() === date.toDateString();
-                const isSelected = selectedDate?.toDateString() === date.toDateString();
+                const date = new Date(
+                  currentMonth.getFullYear(),
+                  currentMonth.getMonth(),
+                  day,
+                );
+                const isToday =
+                  new Date().toDateString() === date.toDateString();
+                const isSelected =
+                  selectedDate?.toDateString() === date.toDateString();
                 return (
                   <div
                     key={day}
-                    className={`day ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''}`}
+                    className={`day ${isToday ? "today" : ""} ${isSelected ? "selected" : ""}`}
                     onClick={() => handleDateSelect(date)}
                   >
                     {day}
@@ -226,10 +278,10 @@ const DemoScheduleForm: React.FC = () => {
             </div>
             {selectedDate && (
               <div className="time-slots mt-3">
-                {timeSlots.map(time => (
-                  <div 
-                    key={time} 
-                    className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
+                {timeSlots.map((time) => (
+                  <div
+                    key={time}
+                    className={`time-slot ${selectedTime === time ? "selected" : ""}`}
                     onClick={() => handleTimeSelect(time)}
                   >
                     {time}
@@ -240,19 +292,27 @@ const DemoScheduleForm: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="col-12 mt-4 text-center">
-        <button 
-          type="button" 
-          className="btn btn-primary px-5 py-2" 
-          disabled={isLoading || !selectedDate || !selectedTime || !formData.studentName || !formData.parentEmail || !formData.mobileNumber || !formData.dob}
+        <button
+          type="button"
+          className="btn btn-primary px-5 py-2"
+          disabled={
+            isLoading ||
+            !selectedDate ||
+            !selectedTime ||
+            !formData.studentName ||
+            !formData.parentEmail ||
+            !formData.mobileNumber ||
+            !formData.dob
+          }
           onClick={handleSubmit}
         >
-          {isLoading ? 'Scheduling...' : 'Schedule'}
+          {isLoading ? "Scheduling..." : "Schedule"}
         </button>
       </div>
     </div>
   );
 };
 
-export default DemoScheduleForm; 
+export default DemoScheduleForm;

@@ -1,19 +1,24 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import { 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  getDocs, 
-  getDoc, 
-  doc, 
-  updateDoc, 
-  deleteDoc, 
-  query, 
-  where, 
-  orderBy, 
-  Timestamp, 
-  serverTimestamp 
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+  orderBy,
+  Timestamp,
+  serverTimestamp,
 } from "firebase/firestore";
 
 // Define types for our data
@@ -42,7 +47,7 @@ const firebaseConfig = {
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
@@ -58,7 +63,7 @@ const schedulesCollection = collection(db, "schedules");
 const createUser = async (userData) => {
   return await addDoc(usersCollection, {
     ...userData,
-    createdAt: serverTimestamp()
+    createdAt: serverTimestamp(),
   });
 };
 
@@ -73,7 +78,7 @@ const getUserById = async (userId) => {
 
 const getAllUsers = async () => {
   const snapshot = await getDocs(usersCollection);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
 const updateUser = async (userId, userData) => {
@@ -87,7 +92,7 @@ const createSchedule = async (scheduleData) => {
   return await addDoc(schedulesCollection, {
     ...scheduleData,
     createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp()
+    updatedAt: serverTimestamp(),
   });
 };
 
@@ -102,45 +107,45 @@ const checkExistingDemoSchedule = async (email, mobileNumber) => {
   const usersQuery = query(
     usersCollection,
     where("role", "==", "demo_student"),
-    where("email", "==", email)
+    where("email", "==", email),
   );
-  
+
   const usersSnapshot = await getDocs(usersQuery);
-  const userIds = usersSnapshot.docs.map(doc => doc.id);
-  
+  const userIds = usersSnapshot.docs.map((doc) => doc.id);
+
   // If no users found with the email, try mobile number
   if (userIds.length === 0) {
     const mobileQuery = query(
       usersCollection,
       where("role", "==", "demo_student"),
-      where("mobileNumber", "==", mobileNumber)
+      where("mobileNumber", "==", mobileNumber),
     );
-    
+
     const mobileSnapshot = await getDocs(mobileQuery);
-    userIds.push(...mobileSnapshot.docs.map(doc => doc.id));
+    userIds.push(...mobileSnapshot.docs.map((doc) => doc.id));
   }
-  
+
   // If we found any users, check if they have demo schedules
   if (userIds.length > 0) {
     for (const userId of userIds) {
       const scheduleQuery = query(
         schedulesCollection,
         where("userId", "==", userId),
-        where("status", "==", "demo_scheduled")
+        where("status", "==", "demo_scheduled"),
       );
-      
+
       const scheduleSnapshot = await getDocs(scheduleQuery);
       if (!scheduleSnapshot.empty) {
         // Return the first matching schedule
         const schedule = scheduleSnapshot.docs[0];
-        return { 
-          exists: true, 
-          schedule: { id: schedule.id, ...schedule.data() } 
+        return {
+          exists: true,
+          schedule: { id: schedule.id, ...schedule.data() },
         };
       }
     }
   }
-  
+
   return { exists: false, schedule: null };
 };
 
@@ -155,24 +160,24 @@ const getScheduleById = async (scheduleId) => {
 
 const getUserSchedules = async (userId) => {
   const q = query(
-    schedulesCollection, 
+    schedulesCollection,
     where("userId", "==", userId),
-    orderBy("date", "desc")
+    orderBy("date", "desc"),
   );
   const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
 const getAllSchedules = async () => {
   const snapshot = await getDocs(schedulesCollection);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
 const updateSchedule = async (scheduleId, scheduleData) => {
   const scheduleRef = doc(db, "schedules", scheduleId);
   await updateDoc(scheduleRef, {
     ...scheduleData,
-    updatedAt: serverTimestamp()
+    updatedAt: serverTimestamp(),
   });
   return true;
 };
@@ -182,16 +187,16 @@ const deleteSchedule = async (scheduleId) => {
   return true;
 };
 
-export { 
-  auth, 
-  db, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  signOut, 
-  collection, 
-  addDoc, 
-  getDocs, 
-  getDoc, 
+export {
+  auth,
+  db,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
   doc,
   query,
   where,
@@ -209,5 +214,5 @@ export {
   getAllSchedules,
   updateSchedule,
   deleteSchedule,
-  checkExistingDemoSchedule
+  checkExistingDemoSchedule,
 };

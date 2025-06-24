@@ -1,10 +1,11 @@
-import DemoScheduleForm from '../components/DemoScheduleForm';
-import Link from 'next/link';
-import '../components/styles/demo-schedule.css';
+import DemoScheduleForm from "../components/DemoScheduleForm";
+import Link from "next/link";
+import "../components/styles/demo-schedule.css";
 
 export const metadata = {
-  title: 'Book Your Free Demo Dance Class',
-  description: 'Schedule a free demo dance class to experience our teaching style and facilities',
+  title: "Book Your Free Demo Dance Class",
+  description:
+    "Schedule a free demo dance class to experience our teaching style and facilities",
 };
 
 export default function ScheduleDemoPage() {
@@ -20,4 +21,4 @@ export default function ScheduleDemoPage() {
       </div>
     </div>
   );
-} 
+}

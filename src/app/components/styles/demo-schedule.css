@@ -52,14 +52,19 @@
 }
 
 .calendar-header::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-accent),
+    transparent
+  );
   opacity: 0.5;
 }
 
@@ -76,7 +81,9 @@
   font-weight: bold;
   color: var(--color-btn-navbar);
   cursor: pointer;
-  transition: background 0.2s, border 0.2s;
+  transition:
+    background 0.2s,
+    border 0.2s;
   box-shadow: none;
   outline: none;
   padding: 0;
@@ -187,7 +194,7 @@
 .demo-form-container {
   background-color: var(--color-bg-card) !important;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   padding: 50px;
   margin-top: 40px;
   margin-bottom: 40px;
@@ -232,4 +239,4 @@ button.btn-primary:hover {
   color: #fff;
   background-color: var(--color-bg-header-footer);
   border-top: 1px solid #e0e7ef;
-} 
+}

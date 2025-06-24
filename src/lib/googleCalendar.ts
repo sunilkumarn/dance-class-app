@@ -1,17 +1,17 @@
-import { google } from 'googleapis';
-import { JWT } from 'google-auth-library';
+import { google } from "googleapis";
+import { JWT } from "google-auth-library";
 
 // Initialize the Google Calendar API client
 const auth = new JWT({
   email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-  key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+  key: process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, "\n"),
   scopes: [
-    'https://www.googleapis.com/auth/calendar',
-    'https://www.googleapis.com/auth/calendar.events',
+    "https://www.googleapis.com/auth/calendar",
+    "https://www.googleapis.com/auth/calendar.events",
   ],
 });
 
-const calendar = google.calendar({ version: 'v3', auth });
+const calendar = google.calendar({ version: "v3", auth });
 
 export const scheduleDemoClass = async (eventDetails: {
   studentName: string;
@@ -23,18 +23,18 @@ export const scheduleDemoClass = async (eventDetails: {
 }) => {
   try {
     // Parse the date and time
-    const [year, month, day] = eventDetails.selectedDate.split('-').map(Number);
-    
+    const [year, month, day] = eventDetails.selectedDate.split("-").map(Number);
+
     // Parse the time string (format: "9:00 AM")
-    const [timeStr, period] = eventDetails.selectedTime.split(' ');
-    const [hoursStr, minutesStr] = timeStr.split(':');
+    const [timeStr, period] = eventDetails.selectedTime.split(" ");
+    const [hoursStr, minutesStr] = timeStr.split(":");
     let hours = parseInt(hoursStr);
     const minutes = parseInt(minutesStr);
-    
+
     // Convert to 24-hour format
-    if (period === 'PM' && hours !== 12) {
+    if (period === "PM" && hours !== 12) {
       hours += 12;
-    } else if (period === 'AM' && hours === 12) {
+    } else if (period === "AM" && hours === 12) {
       hours = 0;
     }
 
@@ -60,30 +60,31 @@ Date of Birth: ${eventDetails.dob}
       `,
       start: {
         dateTime: formatDateToISO(startTime),
-        timeZone: 'Asia/Kolkata',
+        timeZone: "Asia/Kolkata",
       },
       end: {
         dateTime: formatDateToISO(endTime),
-        timeZone: 'Asia/Kolkata',
+        timeZone: "Asia/Kolkata",
       },
       reminders: {
         useDefault: false,
         overrides: [
-          { method: 'email', minutes: 24 * 60 },
-          { method: 'popup', minutes: 30 },
+          { method: "email", minutes: 24 * 60 },
+          { method: "popup", minutes: 30 },
         ],
       },
     };
 
     const response = await calendar.events.insert({
-      calendarId: '40ddb05e81790b84622cf67172236b603db07befdf4f3b9a16cd4aac107eba93@group.calendar.google.com',
+      calendarId:
+        "40ddb05e81790b84622cf67172236b603db07befdf4f3b9a16cd4aac107eba93@group.calendar.google.com",
       requestBody: event,
-      sendUpdates: 'none',
+      sendUpdates: "none",
     });
 
     return response.data;
   } catch (error) {
-    console.error('Error scheduling demo class:', error);
+    console.error("Error scheduling demo class:", error);
     throw error;
   }
-}; 
+};

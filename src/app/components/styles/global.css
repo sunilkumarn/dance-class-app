@@ -1,13 +1,13 @@
 :root {
-  --color-bg-primary: #FDF6F0;
-  --color-bg-header-footer: #FAF5F1;
-  --color-bg-card: #F2E3D5;
-  --color-bg-calendar: #F2E9DD	;
-  --color-btn-primary: #C99C49;
-  --color-btn-navbar: #7B3F3F;
-  --color-text-body: #3D3D3D;
-  --color-text-heading: #6C3E3E;
-  --color-accent: #D97766;
+  --color-bg-primary: #fdf6f0;
+  --color-bg-header-footer: #faf5f1;
+  --color-bg-card: #f2e3d5;
+  --color-bg-calendar: #f2e9dd;
+  --color-btn-primary: #c99c49;
+  --color-btn-navbar: #7b3f3f;
+  --color-text-body: #3d3d3d;
+  --color-text-heading: #6c3e3e;
+  --color-accent: #d97766;
 }
 
 body {
@@ -16,7 +16,12 @@ body {
   font-family: "Roboto", Arial, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--color-text-heading);
   font-family: "Berkshire Swash", serif;
   font-weight: normal;
@@ -29,7 +34,7 @@ h2 {
 }
 
 h2::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -40,70 +45,91 @@ h2::after {
 }
 
 /* Footer */
-footer, .footer, .site-footer {
+footer,
+.footer,
+.site-footer {
   text-align: center;
   padding: 1rem;
   font-size: 0.875rem;
   font-family: "Berkshire Swash", serif;
 }
 
-header, .navbar, .navbar-expand-lg, .footer {
+header,
+.navbar,
+.navbar-expand-lg,
+.footer {
   background: var(--color-bg-header-footer) !important;
   color: #fff !important;
 }
 
-.card, .bg-card, .demo-form-container, .testimonial, .container-box, .bg-light {
+.card,
+.bg-card,
+.demo-form-container,
+.testimonial,
+.container-box,
+.bg-light {
   background: var(--color-bg-card) !important;
   color: var(--color-text-body);
 }
 
-.btn-primary, button.btn-primary, .schedule-demo {
+.btn-primary,
+button.btn-primary,
+.schedule-demo {
   background: var(--color-btn-primary) !important;
   border-color: var(--color-btn-primary) !important;
   color: #fff !important;
 }
 
-.btn-primary:hover, button.btn-primary:hover, .schedule-demo:hover {
+.btn-primary:hover,
+button.btn-primary:hover,
+.schedule-demo:hover {
   background: var(--color-accent) !important;
   border-color: var(--color-accent) !important;
   color: #fff !important;
 }
 
-.navbar .btn, .navbar .btn-primary, .navbar .schedule-demo {
+.navbar .btn,
+.navbar .btn-primary,
+.navbar .schedule-demo {
   background: var(--color-btn-navbar) !important;
   border-color: var(--color-btn-navbar) !important;
   color: #fff !important;
 }
 
-a, .nav-link {
+a,
+.nav-link {
   color: var(--color-btn-navbar);
   transition: color 0.2s;
 }
 
-a:hover, .nav-link:hover {
+a:hover,
+.nav-link:hover {
   color: var(--color-accent) !important;
 }
 
 /* Calendar background (for calendar containers) */
-.calendar, .calendar-bg {
+.calendar,
+.calendar-bg {
   background: var(--color-bg-calendar) !important;
 }
 
 .container-box {
-    background-image: url('/images/hero-background.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background-image: url("/images/hero-background.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.berkshire-font{
-    font-family: "Berkshire Swash", serif;
+.berkshire-font {
+  font-family: "Berkshire Swash", serif;
 }
 
-input, textarea, select {
-  background-color: #FBF6F0 !important;
-  border: 1px solid #E2D9D1;
-  color: #3D3D3D;
+input,
+textarea,
+select {
+  background-color: #fbf6f0 !important;
+  border: 1px solid #e2d9d1;
+  color: #3d3d3d;
   padding: 10px 12px;
   border-radius: 6px;
   width: 100%;
@@ -119,7 +145,7 @@ textarea::placeholder {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: #C99C49;
+  border-color: #c99c49;
   outline: none;
   box-shadow: 0 0 0 2px rgba(201, 156, 73, 0.2); /* Gold focus ring */
 }

@@ -10,9 +10,16 @@ import "./components/styles/global.css";
 import "./components/styles/demo-schedule.css";
 
 const berkshireSwash = Berkshire_Swash({ weight: "400", subsets: ["latin"] });
-const roboto = Roboto({ weight: ["100", "400", "500", "900"], subsets: ["latin"] });
+const roboto = Roboto({
+  weight: ["100", "400", "500", "900"],
+  subsets: ["latin"],
+});
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   useEffect(() => {
     // Import Bootstrap JS on the client side
     require("bootstrap/dist/js/bootstrap.bundle.min.js");
@@ -20,11 +27,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en">
-      <body className={`${berkshireSwash.className} ${roboto.className} d-flex flex-column min-vh-100`}>
+      <body
+        className={`${berkshireSwash.className} ${roboto.className} d-flex flex-column min-vh-100`}
+      >
         <Header />
-        <main className="flex-grow-1">
-          {children}
-        </main>
+        <main className="flex-grow-1">{children}</main>
         <Footer />
       </body>
     </html>

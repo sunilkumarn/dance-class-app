@@ -1,99 +1,103 @@
 .testimonials {
-    padding: 4rem 2rem;
-    text-align: center;
-    background-color: var(--color-bg-primary);
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: var(--color-bg-primary);
 }
 
 .testimonials h2 {
-    font-family: "Berkshire Swash", serif;
-    margin-bottom: 3rem;
-    color: var(--color-text-heading);
-    }
+  font-family: "Berkshire Swash", serif;
+  margin-bottom: 3rem;
+  color: var(--color-text-heading);
+}
 
-.testimonial{
-    background: var(--color-bg-card) !important;
-    text-align: center;
-    padding: 30px 40px 50px;
-    margin: 0 0px 100px;
-    position: relative;
-    color: var(--color-text-body);
+.testimonial {
+  background: var(--color-bg-card) !important;
+  text-align: center;
+  padding: 30px 40px 50px;
+  margin: 0 0px 100px;
+  position: relative;
+  color: var(--color-text-body);
 }
 .testimonial:before,
-.testimonial:after{
-    content: "";
-    border-top: 40px solid var(--color-bg-card);
-    border-right: 180px solid transparent;
-    position: absolute;
-    bottom: -40px;
-    left: 0;
+.testimonial:after {
+  content: "";
+  border-top: 40px solid var(--color-bg-card);
+  border-right: 180px solid transparent;
+  position: absolute;
+  bottom: -40px;
+  left: 0;
 }
-.testimonial:after{
-    border-right: none;
-    border-left: 180px solid transparent;
-    left: auto;
-    right: 0;
+.testimonial:after {
+  border-right: none;
+  border-left: 180px solid transparent;
+  left: auto;
+  right: 0;
 }
-.testimonial .icon{
-    display: inline-block;
-    font-size: 80px;
-    color: var(--color-accent);
-    margin-bottom: 20px;
-    opacity: 0.6;
+.testimonial .icon {
+  display: inline-block;
+  font-size: 80px;
+  color: var(--color-accent);
+  margin-bottom: 20px;
+  opacity: 0.6;
 }
-.testimonial .description{
-    color: var(--color-text-body);
-    text-align: left;
-    margin-bottom: 30px;
-    font-family: "Roboto", sans-serif;
-    font-size: 15px;
-    opacity: 0.8;
+.testimonial .description {
+  color: var(--color-text-body);
+  text-align: left;
+  margin-bottom: 30px;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  opacity: 0.8;
 }
-.testimonial .testimonial-content{
-    width: 100%;
-    position: absolute;
-    left: 0;
+.testimonial .testimonial-content {
+  width: 100%;
+  position: absolute;
+  left: 0;
 }
-.testimonial .pic{
-    display: inline-block;
-    border: 2px solid var(--color-bg-card);
-    border-radius: 50%;
-    box-shadow: 0 0 2px 2px var(--color-btn-primary);
-    overflow: hidden;
-    z-index: 1;
-    position: relative;
+.testimonial .pic {
+  display: inline-block;
+  border: 2px solid var(--color-bg-card);
+  border-radius: 50%;
+  box-shadow: 0 0 2px 2px var(--color-btn-primary);
+  overflow: hidden;
+  z-index: 1;
+  position: relative;
 }
-.testimonial .pic img{
-    width: 90px;
-    height: 90px;
+.testimonial .pic img {
+  width: 90px;
+  height: 90px;
 }
-.testimonial .title{
-    font-size: 15px;
-    font-weight: bold;
-    color: var(--color-accent);
-    text-transform: capitalize;
-    margin: 0 0 5px 0;
+.testimonial .title {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--color-accent);
+  text-transform: capitalize;
+  margin: 0 0 5px 0;
 }
-.testimonial .post{
-    display: block;
-    font-size: 14px;
-    color: var(--color-btn-primary);
+.testimonial .post {
+  display: block;
+  font-size: 14px;
+  color: var(--color-btn-primary);
 }
 
-@media only screen and (max-width: 650px) and (min-width: 400px){
-    .testimonial:before{ border-right: 325px solid transparent; }
-    .testimonial:after{ border-left: 325px solid transparent; }
+@media only screen and (max-width: 650px) and (min-width: 400px) {
+  .testimonial:before {
+    border-right: 325px solid transparent;
+  }
+  .testimonial:after {
+    border-left: 325px solid transparent;
+  }
 }
 
 .swiper-wrapper {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 span.swiper-pagination-bullet {
-    background: var(--color-accent) ;
-    width: 12px;
-    height: 12px;
+  background: var(--color-accent);
+  width: 12px;
+  height: 12px;
 }
 
 span.swiper-pagination-bullet-active {
-    background: var(--color-btn-navbar) ; 
+  background: var(--color-btn-navbar);
 }

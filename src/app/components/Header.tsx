@@ -23,14 +23,14 @@ export default function Header() {
 
   const scrollToDemo = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (pathname !== '/') {
+    if (pathname !== "/") {
       // If not on home page, navigate to home page first
-      router.push('/?scrollToDemo=true');
+      router.push("/?scrollToDemo=true");
     } else {
       // If already on home page, scroll to demo section
-      const demoSection = document.getElementById('free-demo');
+      const demoSection = document.getElementById("free-demo");
       if (demoSection) {
-        demoSection.scrollIntoView({ behavior: 'smooth' });
+        demoSection.scrollIntoView({ behavior: "smooth" });
       }
     }
   };
@@ -42,19 +42,26 @@ export default function Header() {
           <img src="/images/logo.svg" alt="Praakrithi School of Music Logo" />
         </Link>
 
-        <button 
-          className="navbar-toggler" 
-          type="button" 
+        <button
+          className="navbar-toggler"
+          type="button"
           onClick={handleNavCollapse}
           aria-expanded={!isNavCollapsed}
           aria-label="Toggle navigation"
         >
           <FontAwesomeIcon icon={faBars} />
         </button>
-        
-        <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse justify-content-end`} id="navbarNav">
+
+        <div
+          className={`${isNavCollapsed ? "collapse" : ""} navbar-collapse justify-content-end`}
+          id="navbarNav"
+        >
           <ul className="navbar-nav align-items-center">
-            <li className="nav-item"><Link className="nav-link" href="/">Home</Link></li>
+            <li className="nav-item">
+              <Link className="nav-link" href="/">
+                Home
+              </Link>
+            </li>
             {loading ? (
               // Show a minimal placeholder during loading to avoid layout shifts
               <li className="nav-item">
@@ -62,25 +69,44 @@ export default function Header() {
               </li>
             ) : user ? (
               <>
-                <li className="nav-item"><Link className="nav-link" href="/dashboard">My Dash</Link></li>
                 <li className="nav-item">
-                  <button onClick={handleLogout} className="btn ms-3">Logout</button>
+                  <Link className="nav-link" href="/dashboard">
+                    My Dash
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <button onClick={handleLogout} className="btn ms-3">
+                    Logout
+                  </button>
                 </li>
               </>
             ) : (
               <>
-              <li className="nav-item">
-                <a href="#free-demo" className="nav-link schedule-demo" onClick={scrollToDemo}>
-                  Schedule a Demo Class
-                </a>
-              </li>
-              <li className="nav-item">
-                <div className="contact-with-icon">
-                  <a className="nav-link" target="_blank" href="https://wa.me/919207759856?text=Hello,%20I%20am%20interested%20in%20learning%20Carnatic%20music!">
-                    Contact Now <FontAwesomeIcon icon={faWhatsapp} className="whatsapp-icon" style={{ color: "#25D366" }} />
+                <li className="nav-item">
+                  <a
+                    href="#free-demo"
+                    className="nav-link schedule-demo"
+                    onClick={scrollToDemo}
+                  >
+                    Schedule a Demo Class
                   </a>
-                </div>
-              </li>
+                </li>
+                <li className="nav-item">
+                  <div className="contact-with-icon">
+                    <a
+                      className="nav-link"
+                      target="_blank"
+                      href="https://wa.me/919207759856?text=Hello,%20I%20am%20interested%20in%20learning%20Carnatic%20music!"
+                    >
+                      Contact Now{" "}
+                      <FontAwesomeIcon
+                        icon={faWhatsapp}
+                        className="whatsapp-icon"
+                        style={{ color: "#25D366" }}
+                      />
+                    </a>
+                  </div>
+                </li>
               </>
             )}
           </ul>

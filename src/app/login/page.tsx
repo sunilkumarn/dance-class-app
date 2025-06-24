@@ -17,7 +17,11 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       // 1️⃣ Authenticate user
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
       const user = userCredential.user;
 
       // 2️⃣ Fetch user details from Firestore
@@ -54,33 +58,50 @@ export default function LoginPage() {
         <h2 className="text-center fw-bold mb-2">Welcome Back</h2>
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleLogin}>
-          
           <div className="mb-3">
             <label className="form-label">Email</label>
-            <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
 
           <div className="mb-3">
             <label className="form-label">Password</label>
-            <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
 
           <div className="d-flex justify-content-between align-items-center mb-3">
-              <Link href="/forgot-password" className="text-primary small">Forgot password?</Link>
-            </div>
-            
-          <button 
-            type="submit" 
-            className="btn btn-primary w-100" 
+            <Link href="/forgot-password" className="text-primary small">
+              Forgot password?
+            </Link>
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary w-100"
             disabled={isLoading}
           >
             {isLoading ? (
               <>
-                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
                 Signing in...
               </>
             ) : (
-              'Sign In'
+              "Sign In"
             )}
           </button>
         </form>
@@ -88,8 +109,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-
-
-
-
