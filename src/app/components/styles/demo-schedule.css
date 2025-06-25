@@ -25,6 +25,12 @@
   background-color: var(--color-bg-header-footer) !important;
 }
 
+.calendar-grid {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
 /* Calendar Styles */
 .calendar {
   margin-bottom: 20px;
@@ -35,6 +41,9 @@
   box-shadow: 0 2px 12px rgba(26, 31, 46, 0.06);
   padding: 24px 18px 18px 18px;
   border: 1px solid #e0e7ef;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
 }
 
 .calendar-header {
@@ -106,6 +115,8 @@
   text-align: center;
   font-weight: 500;
   margin-bottom: 5px;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .day-name {
@@ -119,6 +130,8 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
   justify-items: center;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .day {
@@ -239,4 +252,24 @@ button.btn-primary:hover {
   color: #fff;
   background-color: var(--color-bg-header-footer);
   border-top: 1px solid #e0e7ef;
+}
+
+@media (max-width: 600px) {
+  .calendar {
+    padding: 16px 2px 12px 2px;
+    min-width: 0;
+    max-width: 100vw;
+    overflow-x: auto;
+  }
+  .calendar-days,
+  .calendar-grid {
+    gap: 4px;
+    min-width: 350px;
+    width: 100%;
+  }
+  .day {
+    height: 32px;
+    width: 32px;
+    font-size: 12px;
+  }
 }

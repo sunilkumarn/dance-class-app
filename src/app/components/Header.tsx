@@ -17,6 +17,9 @@ export default function Header() {
 
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
+  // Close nav on link click
+  const handleNavLinkClick = () => setIsNavCollapsed(true);
+
   const handleLogout = async () => {
     await signOut(auth);
     window.location.href = "/login";
@@ -59,7 +62,7 @@ export default function Header() {
         >
           <ul className="navbar-nav align-items-center">
             <li className="nav-item">
-              <Link className="nav-link" href="/">
+              <Link className="nav-link" href="/" onClick={handleNavLinkClick}>
                 Home
               </Link>
             </li>
@@ -71,12 +74,12 @@ export default function Header() {
             ) : user ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/dashboard">
+                  <Link className="nav-link" href="/dashboard" onClick={handleNavLinkClick}>
                     My Dash
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <button onClick={handleLogout} className="btn ms-3">
+                  <button onClick={() => { handleLogout(); handleNavLinkClick(); }} className="btn ms-3">
                     Logout
                   </button>
                 </li>
@@ -87,7 +90,7 @@ export default function Header() {
                   <a
                     href="#free-demo"
                     className="nav-link schedule-demo"
-                    onClick={scrollToDemo}
+                    onClick={e => { scrollToDemo(e); handleNavLinkClick(); }}
                   >
                     Schedule a Demo Class
                   </a>
@@ -98,6 +101,7 @@ export default function Header() {
                       className="nav-link"
                       target="_blank"
                       href="https://wa.me/919207759856?text=Hello,%20I%20am%20interested%20in%20learning%20Carnatic%20music!"
+                      onClick={handleNavLinkClick}
                     >
                       Contact Now{" "}
                       <FontAwesomeIcon
