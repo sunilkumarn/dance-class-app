@@ -1,10 +1,5 @@
 import Link from "next/link";
 
-export const metadata = {
-  title: "Demo Class Scheduled - Confirmation",
-  description: "Your demo dance class has been scheduled successfully",
-};
-
 export default function DemoConfirmationPage() {
   return (
     <div className="demo-page">
@@ -32,13 +27,10 @@ export default function DemoConfirmationPage() {
 
               <h1 className="h3 mb-3">Thank You!</h1>
               <p className="lead mb-4">
-                Your demo class has been scheduled successfully, en email with details has been sent to you now.
+                Your demo class has been scheduled successfully and we&apos;ll contact you soon to confirm your schedule.
               </p>
 
               <div className="mb-4 p-3 bg-light rounded">
-                <p className="mb-1">
-                  We&apos;ll contact you soon to confirm your schedule
-                </p>
                 <p className="small text-muted mb-0">
                   If you have any questions, please contact us at{" "}
                   <a
