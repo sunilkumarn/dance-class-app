@@ -72,7 +72,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 80vh;
+  min-height: max(530px, 80vh);
   display: flex;
   flex-direction: column;
   justify-content: center;
