@@ -234,4 +234,19 @@
   .contact-with-icon {
     margin-top: 0.5rem;
   }
+
+  #hero-content-description {
+    padding: 0 0.5rem;
+    z-index: 1;
+  }
+  #hero-content-intro h2 {
+    font-size: 1.5rem;
+  }
+  #hero-content-intro div {
+    font-size: 1rem;
+  }
+  #hero-content-description p {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
 }
