@@ -1,13 +1,21 @@
-"use client";
+// ❌ DO NOT use "use client"
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
+
 import { Berkshire_Swash, Roboto } from "next/font/google";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ClientBootstrap from "./components/ClientBootstrap";
 import "./components/styles/landing.css";
 import "./components/styles/testimonial.css";
 import "./components/styles/global.css";
 import "./components/styles/demo-schedule.css";
+
+export const metadata = {
+  title: "Praakrithi School of Music",
+  icons: {
+    icon: "/images/logo.svg",
+  },
+};
 
 const berkshireSwash = Berkshire_Swash({ weight: "400", subsets: ["latin"] });
 const roboto = Roboto({
@@ -20,16 +28,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  useEffect(() => {
-    // Import Bootstrap JS on the client side
-    // Remove the inline module declaration from this file. It should be placed in a global.d.ts file instead.
-  }, []);
-
   return (
     <html lang="en">
       <body
         className={`${berkshireSwash.className} ${roboto.className} d-flex flex-column min-vh-100`}
       >
+        <ClientBootstrap /> {/* Loads Bootstrap JS on client */}
         <Header />
         <main className="flex-grow-1">{children}</main>
         <Footer />

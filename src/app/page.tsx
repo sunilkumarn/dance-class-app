@@ -1,5 +1,4 @@
 "use client";
-import Head from "next/head";
 import Testimonials from "./components/Testimonials";
 import ScrollIndicator from "./components/ScrollIndicator";
 import Link from "next/link";
@@ -22,9 +21,6 @@ function ScrollToDemoEffect() {
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Praakrithi School of Music</title>
-      </Head>
       <Suspense>
         <ScrollToDemoEffect />
       </Suspense>
