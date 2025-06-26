@@ -13,16 +13,16 @@ import "swiper/css/navigation";
 
 const testimonials = [
   {
-    name: "Anaya",
-    img: "/images/anaya.jpeg",
-    text: "My daughter Anaya had absolutely no interest in music when we first enrolled her for the demo class. She was also quite restless and couldn't sit still for more than a few minutes. But to our surprise, she sat through the entire class and even showed interest! Since then, there's been a remarkable transformation. She now looks forward to every session, sings confidently at her school programs, and stays fully focused throughout the class — something we never imagined. Music has brought out calmness, discipline, and confidence in her that continues to amaze us every single day. We're so grateful to have found this space.",
-    attribution: "Simi, Alappuzha"
-  },
-  {
     name: "Chinmayi",
     img: "/images/chinmayi.jpeg",
     text: "I wanted to introduce my daughter to the rich tradition of classical music. I also hoped to give her a meaningful break from screens and gadgets, and some quality time to engage in something beautiful. That's when I came across Praakriti, which offers music sessions for children. I was a bit skeptical at first, especially considering her young age and the fact that the classes were online. But it worked out wonderfully. The teacher showed incredible patience, understood my child's pace, and gently guided her. I would wholeheartedly recommend this to anyone looking to offer their child something truly enriching.",
     attribution: "Kiran, Thrissur"
+  },
+  {
+    name: "Anaya",
+    img: "/images/anaya.jpeg",
+    text: "My daughter Anaya had absolutely no interest in music when we first enrolled her for the demo class. She was also quite restless and couldn't sit still for more than a few minutes. But to our surprise, she sat through the entire class and even showed interest! Since then, there's been a remarkable transformation. She now looks forward to every session, sings confidently at her school programs, and stays fully focused throughout the class — something we never imagined. Music has brought out calmness, discipline, and confidence in her that continues to amaze us every single day. We're so grateful to have found this space.",
+    attribution: "Simi, Alappuzha"
   },
   {
     name: "Bharat",
