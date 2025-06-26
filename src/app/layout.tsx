@@ -11,7 +11,7 @@ import "./components/styles/global.css";
 import "./components/styles/demo-schedule.css";
 
 export const metadata = {
-  title: "Praakrithi School of Music",
+  title: "Praakriti School of Music",
   icons: {
     icon: "/images/logo.svg",
   },

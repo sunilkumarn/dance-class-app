@@ -26,7 +26,7 @@ export default function Home() {
       </Suspense>
       <section className="hero">
         <div className="hero-content" id="hero-content-intro">
-          <h2>Praakrithi School of Music</h2>
+          <h2>Praakriti School of Music</h2>
           <div>Invoke the life within!</div>
         </div>
         <div className="hero-content" id="hero-content-description">
@@ -35,7 +35,7 @@ export default function Home() {
             home!
           </p>
           <p>
-            Praakrithi School of Music offers personalized online classes
+            Praakriti School of Music offers personalized online classes
             tailored to your pace and skill level, helping you master the
             nuances of this rich musical tradition.
           </p>

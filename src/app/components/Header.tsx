@@ -43,7 +43,7 @@ export default function Header() {
     <nav className="navbar navbar-expand-lg">
       <div className="container">
         <Link className="navbar-brand" href="/">
-          <Image src="/images/logo.svg" alt="Praakrithi School of Music Logo" width={100} height={50} />
+          <Image src="/images/logo.svg" alt="Praakriti School of Music Logo" width={100} height={50} />
         </Link>
 
         <button
