@@ -33,8 +33,8 @@ const testimonials = [
   {
     name: "Aswath",
     img: "/images/user.jpg",
-    text: "Aswanth has always shown a deep interest in cultural activities, especially those at nearby temples. I sensed early on that he was drawn to music and tradition, and I wanted to find a space where that spark could be carefully nurtured. That's when I came across Praakriti. From the very first class, I knew we had made the right choice. The sessions are not just about learning songs — they provide a strong foundation in classical music, while still being gentle and engaging for children. The teacher's patience and attention to detail have helped Aswanth grow beautifully in his musical journey. I'm truly grateful for this space that understands and moulds children with such care.",
-    attribution: "Ranjini, Pathanamthitta"
+    text: "Aswath has always shown a deep interest in cultural activities, especially those at nearby temples. I sensed early on that he was drawn to music and tradition, and I wanted to find a space where that spark could be carefully nurtured. That's when I came across Praakriti. From the very first class, I knew we had made the right choice. The sessions are not just about learning songs — they provide a strong foundation in classical music, while still being gentle and engaging for children. The teacher's patience and attention to detail have helped Aswanth grow beautifully in his musical journey. I'm truly grateful for this space that understands and moulds children with such care.",
+    attribution: "Renjini, Pathanamthitta"
   },
 ];
 
