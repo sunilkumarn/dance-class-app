@@ -32,7 +32,7 @@ const testimonials = [
   },  
   {
     name: "Aswath",
-    img: "/images/user.jpg",
+    img: "/images/aswath.jpeg",
     text: "From a very young age, Aswath has shown a deep interest in singing—whether it was poems, film songs, or simple tunes around the house. As parents, we were looking for a space where his natural inclination could be nurtured with care and individual attention.\n\nWe explored several options, but most of them offered only group classes, which didn’t quite meet what we were looking for. We wanted a teacher who could truly understand each child’s unique rhythm and guide them accordingly.\n\nThat’s when we found Praakriti. It has been a wonderful space where Aswath is not just learning music, but growing joyfully with it. We are truly grateful.",
     attribution: "Renjini, Pathanamthitta"
   },
