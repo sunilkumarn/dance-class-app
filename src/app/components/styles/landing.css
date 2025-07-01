@@ -226,6 +226,10 @@
     margin-top: 1rem;
   }
 
+  #hero-content-intro {
+    top: 7rem;
+  }
+
   .schedule-demo {
     display: inline-block;
     margin-bottom: 0.5rem;
