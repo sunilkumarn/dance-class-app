@@ -14,7 +14,7 @@ export const scheduleDemoClass = async (
   try {
     // Initialize OAuth2 client
     const oauth2Client = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET, "http://localhost:3000/api/auth/callback/google");
+      process.env.GOOGLE_CLIENT_SECRET);
 
     oauth2Client.setCredentials({
       refresh_token: process.env.GOOGLE_CALENDER_REFRESH_TOKEN
