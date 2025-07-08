@@ -156,6 +156,35 @@
   cursor: default;
 }
 
+.day.disabled {
+  cursor: default;
+}
+
+.day.blocked {
+  background-color: #ffebee !important;
+  color: #d32f2f !important;
+  border: 1px solid #f44336 !important;
+  cursor: not-allowed !important;
+  position: relative;
+}
+
+.day.blocked::after {
+  content: "✕";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #f44336;
+  color: white;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
 .day.today {
   font-weight: bold;
   border: 1px solid var(--color-accent);

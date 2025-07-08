@@ -3,6 +3,38 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+// Configuration for blocked date ranges
+const BLOCKED_DATE_RANGES = [
+  {
+    start: new Date(2025, 6, 10), // July 10, 2025 (month is 0-indexed)
+    end: new Date(2025, 6, 18),   // July 18, 2025
+    reason: "School Holidays"
+  }
+  // Add more blocked ranges here as needed
+  // Example:
+  // {
+  //   start: new Date(2025, 11, 20), // December 20, 2025
+  //   end: new Date(2025, 11, 31),   // December 31, 2025
+  //   reason: "Winter Break"
+  // }
+];
+
+// Helper function to check if a date is blocked
+const isDateBlocked = (date: Date): { blocked: boolean; reason?: string } => {
+  const dateToCheck = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  
+  for (const range of BLOCKED_DATE_RANGES) {
+    const startDate = new Date(range.start.getFullYear(), range.start.getMonth(), range.start.getDate());
+    const endDate = new Date(range.end.getFullYear(), range.end.getMonth(), range.end.getDate());
+    
+    if (dateToCheck >= startDate && dateToCheck <= endDate) {
+      return { blocked: true, reason: range.reason };
+    }
+  }
+  
+  return { blocked: false };
+};
+
 interface DemoFormData {
   studentName: string;
   parentEmail: string;
@@ -308,13 +340,17 @@ const DemoScheduleForm: React.FC = () => {
                   new Date().toDateString() === date.toDateString();
                 const isSelected =
                   selectedDate?.toDateString() === date.toDateString();
-                const isDisabled = date < minSelectableDate;
+                const isPastOrToday = date < minSelectableDate;
+                const { blocked: isBlocked, reason } = isDateBlocked(date);
+                const isDisabled = isPastOrToday || isBlocked;
+                
                 return (
                   <div
                     key={day}
-                    className={`day${isToday ? " today" : ""}${isSelected ? " selected" : ""}${isDisabled ? " disabled" : ""}`}
+                    className={`day${isToday ? " today" : ""}${isSelected ? " selected" : ""}${isDisabled ? " disabled" : ""}${isBlocked ? " blocked" : ""}`}
                     onClick={isDisabled ? undefined : () => handleDateSelect(date)}
                     style={isDisabled ? { pointerEvents: "none", opacity: 0.5 } : {}}
+                    title={isBlocked ? `Blocked: ${reason}` : undefined}
                   >
                     {day}
                   </div>
